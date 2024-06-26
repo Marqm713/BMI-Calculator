@@ -27,7 +27,7 @@ class BMICalc:
 
 
         # Compute BMI Buttons 
-        btComputeBMI = CTkButton(window, text = "Compute US BMI (imperial)", font=("Roboto", 14), fg_color="#330066", 
+        btComputeBMI = CTkButton(window, text = "Compute BMI (imperial)", font=("Roboto", 14), fg_color="#330066", 
                                  hover_color= "#6A5ACD", command = self.getUSBMI).grid( row = 6, column = 2, sticky = E,) #HC SLATE BLUE/ FG PURPLE
         metriccomputeBMI = CTkButton(window, text = "Compute BMI (metric)", font=("Roboto", 14), fg_color="#330066", 
                                  hover_color= "#6A5ACD", command = self.getUKBMI).grid( row = 6, column = 1, sticky = W)#HC SLATE BLUE/ FG PURPLE
