@@ -1,62 +1,38 @@
-from customtkinter import *
+from tkinter import *
+
 class BMICalc:
     def __init__(self):
-        window = CTk()
-
-        # Appearance
-        set_appearance_mode("dark")
+        ## WINDOW ##
+        window = Tk()
         window.title("Studio Super: BMI Calculator")
 
+        ## LEFT-SIDE LABELS ##
+        Label(window, text = "Enter your current height in inches: ").grid(row = 1, column = 1, sticky = W)
+        Label(window, text = "Enter your current weight in pounds: ").grid(row = 2, column = 1, sticky = W)
+        Label(window, text = "Your current BMI is: ").grid(row = 3, column = 1, sticky = W)
 
-        # Label Questions
-        label1 = CTkLabel(window, text = "Enter your current height (inches): ").grid(row = 2, column = 1, sticky = W)
-        label2 = CTkLabel(window, text = "Enter your current weight (pounds): ").grid(row = 3, column = 1, sticky = W)
-        label3 = CTkLabel(window, text = "Your current BMI is: ").grid(row = 4, column = 1, sticky = W)
+        ## RIGHT-SIDE ENTRY BOXES ##
+        self.heightVar = IntVar()
+        Entry(window, textvariable = self.heightVar, justify = RIGHT).grid(row = 1, column = 2)
+        self.weightVar = IntVar()
+        Entry(window, textvariable = self.weightVar, justify = RIGHT).grid(row = 2, column = 2)
 
-
-        # Entry Boxes
-        self.heightVar = StringVar()
-        CTkEntry(window, textvariable=self.heightVar, fg_color="#663366", justify=RIGHT).grid(row=2, column=2,sticky=E)
-        self.weightVar = StringVar()
-        CTkEntry(window, textvariable=self.weightVar, fg_color="#663366", justify=RIGHT).grid(row=3, column=2, sticky=E)
-
-
-        # Label Total Display
+        ## RIGHT-SIDE LABEL ##
         self.totalVar = StringVar()
-        lbltotalVar = CTkLabel(window, font=("Roboto", 20), textvariable = self.totalVar).grid(row = 4, column = 2, sticky = E)
+        lbltotalVar = Label(window, textvariable = self.totalVar).grid(row = 3, column = 2, sticky = E)
 
-
-        # Compute BMI Buttons 
-        btComputeBMI = CTkButton(window, text = "Compute US BMI (imperial)", font=("Roboto", 14), fg_color="#330066", 
-                                 hover_color= "#6A5ACD", command = self.getUSBMI).grid( row = 6, column = 2, sticky = E,) #HC SLATE BLUE/ FG PURPLE
-        metriccomputeBMI = CTkButton(window, text = "Compute BMI (metric)", font=("Roboto", 14), fg_color="#330066", 
-                                 hover_color= "#6A5ACD", command = self.getUKBMI).grid( row = 6, column = 1, sticky = W)#HC SLATE BLUE/ FG PURPLE
-
+        ## BMI BUTTON **
+        btComputeBMI = Button(window, text = "Compute BMI", command = self.getBMI).grid( row = 6, column = 2, sticky = E)
 
         window.mainloop()
 
-
-        # Metric System formula
-    def getUKBMI(self):
-        try:
-            weight = float(self.weightVar.get())
-            height = float(self.heightVar.get())
-            height =  (height[0] * 12 + height[2])
-            totalVar = weight / height ** 2
-            self.totalVar.set(f"{totalVar: 10.2f}")
-        except ValueError:
-            self.totalVar.set("Invalid input")
-
-        # Imperial System Formula
-    def getUSBMI(self):
-        try:
-            weight = float(self.weightVar.get())
-            height = float(self.heightVar.get()) 
-            totalVar = (weight / ((height[0] * 12 + height[2]) ** 2)) * 703
-            self.totalVar.set(f"{totalVar: 10.2f}")
-        except ValueError:
-            self.totalVar.set("Invalid input")
-
-
-
+        ## BMI FORMULA ##
+    def getBMI(self):
+        weight = (self.weightVar.get())
+        height = (self.heightVar.get())
+        totalVar = (float(weight) / float(height) ** 2) * 703
+        self.totalVar.set(f"{totalVar: 10.2f}")
+       
+        return totalVar;
+        
 BMICalc()
